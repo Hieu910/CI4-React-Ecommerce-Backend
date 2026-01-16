@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
+RUN chown -R www-data:www-data /var/www/html/writable
+RUN chmod -R 777 /var/www/html/writable
 
 WORKDIR /var/www/html
 COPY . .
