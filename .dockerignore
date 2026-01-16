@@ -1,0 +1,4 @@
+.env
+/writable/*
+!/writable/.gitignore
+vendor
