@@ -10,7 +10,6 @@ $allowed_origins = [
     'https://ci-4-react-ecommerce-frontend.vercel.app',
     'https://ci-4-react-ecommerce-frontend-git-main-hieu910s-projects.vercel.app/',
     'https://ci-4-react-ecommerce-frontend-5zmmwh193-hieu910s-projects.vercel.app/',
-
     'http://localhost:5173',
     'http://localhost:3000'
 ];

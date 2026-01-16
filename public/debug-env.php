@@ -1,12 +1,6 @@
 <?php
 echo "<pre>";
-echo "=== ENVIRONMENT VARIABLES ===\n";
-echo "Hostname: " . (getenv('database.default.hostname') ?: 'NOT SET') . "\n";
-echo "Port: " . (getenv('database.default.port') ?: 'NOT SET') . "\n";
-echo "Database: " . (getenv('database.default.database') ?: 'NOT SET') . "\n";
-echo "Username: " . (getenv('database.default.username') ?: 'NOT SET') . "\n";
-echo "Password: " . (getenv('database.default.password') ? 'SET' : 'NOT SET') . "\n";
-
-echo "\n=== ALL ENV VARS ===\n";
-print_r(getenv());
+echo "DB_HOST: " . ($_SERVER['DB_HOST'] ?? 'NOT SET') . "\n";
+echo "DB_PORT: " . ($_SERVER['DB_PORT'] ?? 'NOT SET') . "\n";
+echo "DB_USER: " . ($_SERVER['DB_USER'] ?? 'NOT SET') . "\n";
 echo "</pre>";

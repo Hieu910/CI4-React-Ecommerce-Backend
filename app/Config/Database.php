@@ -194,6 +194,22 @@ class Database extends Config
     {
         parent::__construct();
 
+        $host = isset($_SERVER['DB_HOST']) ? $_SERVER['DB_HOST'] : 'localhost';
+        $user = isset($_SERVER['DB_USER']) ? $_SERVER['DB_USER'] : 'root';
+        $pass = isset($_SERVER['DB_PASSWORD']) ? $_SERVER['DB_PASSWORD'] : '';
+        $name = isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : 'test';
+        $port = isset($_SERVER['DB_PORT']) ? (int)$_SERVER['DB_PORT'] : 3306;
+
+        $this->default = [
+            'DSN'      => '',
+            'hostname' => $host,
+            'username' => $user,
+            'password' => $pass,
+            'database' => $name,
+            'DBPort'   => $port,
+            'DBDriver' => 'MySQLi',
+        ];
+
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that
         // we don't overwrite live data on accident.
