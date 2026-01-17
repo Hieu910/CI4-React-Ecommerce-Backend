@@ -18,7 +18,12 @@ class CategoryController extends BaseController
     }
     public function index()
     {
-        $data = $this->categoryModel->orderBy('id', 'ASC')->findAll();
-        return $this->responseSuccess($data);
+        try {
+            $data = $this->categoryModel->orderBy('id', 'ASC')->findAll();
+            return $this->responseSuccess($data);
+        }
+        catch (\Exception $e) {
+            return $this->responseError(['message' => $e->getMessage()]);
+        }
     }
 }
