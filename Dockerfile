@@ -43,6 +43,15 @@ RUN echo '<Directory /var/www/html/public>\n\
     Require all granted\n\
 </Directory>' >> /etc/apache2/sites-available/000-default.conf
 
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/writable
+
+# XÓA CACHE
+RUN rm -rf /var/www/html/writable/cache/* \
+    && rm -rf /var/www/html/writable/session/* \
+    && rm -rf /var/www/html/writable/debugbar/*
+
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 80
 
