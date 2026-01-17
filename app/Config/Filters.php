@@ -82,6 +82,7 @@ class Filters extends BaseFilters
             // 'invalidchars',
         ],
         'after' => [
+            'cors',
             // 'honeypot',
             // 'secureheaders',
         ],

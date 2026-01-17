@@ -11,7 +11,7 @@ $routes->options('(:any)', function () {
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
     return $response
         ->setHeader('Access-Control-Allow-Origin', $origin)
-        ->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, ngrok-skip-browser-warning')
+        ->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With')
         ->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
         ->setHeader('Access-Control-Allow-Credentials', 'true')
         ->setStatusCode(200);

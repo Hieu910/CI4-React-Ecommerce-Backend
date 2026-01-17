@@ -75,7 +75,7 @@ class ProductController extends BaseController
             $products = $this->productModel->getProductsByTag($tag);
             return $this->responseSuccess($products);
         } catch (\Exception $e) {
-            return $this->responseError(['message' => 'Failed to fetch products by tag']);
+            return $this->responseError(['message' => $e->getMessage()]);
         }
     }
 
