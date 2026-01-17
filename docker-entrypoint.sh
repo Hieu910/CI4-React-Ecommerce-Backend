@@ -44,11 +44,10 @@ cat /var/www/html/.env | grep -v -i password | grep -v -i secret
 echo "---"
 echo ""
 
-# Set permissions
+
 chown www-data:www-data /var/www/html/.env
 chmod 644 /var/www/html/.env
 
-# Clear cache
 echo "Clearing cache..."
 rm -rf /var/www/html/writable/cache/* 2>/dev/null || true
 rm -rf /var/www/html/writable/session/* 2>/dev/null || true
@@ -58,5 +57,4 @@ echo "========================================="
 echo "Starting Apache..."
 echo "========================================="
 
-# Start Apache (exec = replace process)
 exec apache2-foreground

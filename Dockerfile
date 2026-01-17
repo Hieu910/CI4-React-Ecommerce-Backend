@@ -1,4 +1,3 @@
-
 FROM php:8.2-apache
 
 
@@ -10,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     git \
     && docker-php-ext-install intl mysqli pdo pdo_mysql zip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN echo "variables_order = \"EGPCS\"" >> /usr/local/etc/php/conf.d/custom.ini
 
 
 RUN a2enmod rewrite
@@ -24,18 +25,21 @@ WORKDIR /var/www/html
 COPY composer.json composer.lock ./
 
 
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+RUN composer install --no-dev --optimize-autoloader
 
 
 COPY . .
 
 
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/writable
 
-
+# Configure Apache
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
-
 
 RUN echo '<Directory /var/www/html/public>\n\
     Options Indexes FollowSymLinks\n\
@@ -43,10 +47,6 @@ RUN echo '<Directory /var/www/html/public>\n\
     Require all granted\n\
 </Directory>' >> /etc/apache2/sites-available/000-default.conf
 
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
 EXPOSE 80
 
 CMD ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["apache2-foreground"]
