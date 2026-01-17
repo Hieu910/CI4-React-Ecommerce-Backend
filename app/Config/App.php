@@ -202,6 +202,6 @@ class App extends BaseConfig
     public function __construct()
     {
         parent::__construct();
-        $this->baseURL = $_SERVER['APP_BASE_URL'] ?? getenv('APP_BASE_URL') ?: 'https://ci4-react-ecommerce-backend.onrender.com/api/';
+        $this->baseURL = $_ENV['APP_BASE_URL'] ?: 'https://ci4-react-ecommerce-backend.onrender.com/api/';
     }
 }

@@ -194,11 +194,11 @@ class Database extends Config
     {
         parent::__construct();
 
-        $host = isset($_SERVER['DB_HOST']) ? $_SERVER['DB_HOST'] : 'localhost';
-        $user = isset($_SERVER['DB_USER']) ? $_SERVER['DB_USER'] : 'root';
-        $pass = isset($_SERVER['DB_PASSWORD']) ? $_SERVER['DB_PASSWORD'] : '';
-        $name = isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : 'test';
-        $port = isset($_SERVER['DB_PORT']) ? (int)$_SERVER['DB_PORT'] : 3306;
+        $host = isset($_ENV['DB_HOST']) ? $_ENV['DB_HOST'] : 'localhost';
+        $user = isset($_ENV['DB_USER']) ? $_ENV['DB_USER'] : 'root';
+        $pass = isset($_ENV['DB_PASSWORD']) ? $_ENV['DB_PASSWORD'] : '';
+        $name = isset($_ENV['DB_NAME']) ? $_ENV['DB_NAME'] : 'test';
+        $port = isset($_ENV['DB_PORT']) ? (int)$_ENV['DB_PORT'] : 3306;
 
         $this->default = [
             'DSN'      => '',
