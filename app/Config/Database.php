@@ -190,25 +190,46 @@ class Database extends Config
         ],
     ];
 
-    public function __construct()
+   public function __construct()
     {
         parent::__construct();
-
-        $host = isset($_ENV['DB_HOST']) ? $_ENV['DB_HOST'] : 'localhost';
-        $user = isset($_ENV['DB_USER']) ? $_ENV['DB_USER'] : 'root';
-        $pass = isset($_ENV['DB_PASSWORD']) ? $_ENV['DB_PASSWORD'] : '';
-        $name = isset($_ENV['DB_NAME']) ? $_ENV['DB_NAME'] : 'test';
-        $port = isset($_ENV['DB_PORT']) ? (int)$_ENV['DB_PORT'] : 3306;
-
+        
         $this->default = [
-            'DSN'      => '',
-            'hostname' => $host,
-            'username' => $user,
-            'password' => $pass,
-            'database' => $name,
-            'DBPort'   => $port,
-            'DBDriver' => 'MySQLi',
+            'DSN'          => '',
+            'hostname'     => env('database.default.hostname', 'localhost'),
+            'username'     => env('database.default.username', 'root'),
+            'password'     => env('database.default.password', ''),
+            'database'     => env('database.default.database', 'test'),
+            'DBDriver'     => env('database.default.DBDriver', 'MySQLi'),
+            'DBPrefix'     => '',
+            'pConnect'     => false,
+            'DBDebug'      => env('database.default.DBDebug', ENVIRONMENT !== 'production'),
+            'charset'      => 'utf8mb4',
+            'DBCollat'     => 'utf8mb4_general_ci',
+            'swapPre'      => '',
+            'encrypt'      => ['ssl_verify' => false],
+            'compress'     => false,
+            'strictOn'     => false,
+            'failover'     => [],
+            'port'         => (int) env('database.default.port', 3306),
+            'numberNative' => false,
+            'dateFormat'   => [
+                'date'     => 'Y-m-d',
+                'datetime' => 'Y-m-d H:i:s',
+                'time'     => 'H:i:s',
+            ],
         ];
+
+        // Log config in production for debugging
+        if (ENVIRONMENT === 'production') {
+            log_message('info', sprintf(
+                'Database config - Host: %s, Port: %d, User: %s, DB: %s',
+                $this->default['hostname'],
+                $this->default['port'],
+                $this->default['username'],
+                $this->default['database']
+            ));
+        }
 
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that
