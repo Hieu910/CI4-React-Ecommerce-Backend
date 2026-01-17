@@ -220,17 +220,6 @@ class Database extends Config
             ],
         ];
 
-        // Log config in production for debugging
-        if (ENVIRONMENT === 'production') {
-            log_message('info', sprintf(
-                'Database config - Host: %s, Port: %d, User: %s, DB: %s',
-                $this->default['hostname'],
-                $this->default['port'],
-                $this->default['username'],
-                $this->default['database']
-            ));
-        }
-
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that
         // we don't overwrite live data on accident.
