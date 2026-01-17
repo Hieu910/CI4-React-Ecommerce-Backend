@@ -199,9 +199,4 @@ class App extends BaseConfig
      * @see http://www.w3.org/TR/CSP/
      */
     public bool $CSPEnabled = false;
-    public function __construct()
-    {
-        parent::__construct();
-        $this->baseURL = $_ENV['APP_BASE_URL'] ?: 'https://ci4-react-ecommerce-backend.onrender.com/api/';
-    }
 }
