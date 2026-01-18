@@ -62,7 +62,7 @@ class AuthController extends BaseController
             if ($this->userModel->save($data)) {
                 $userId = $this->userModel->getInsertID();
                 $user = $this->userModel->find($userId);
-                $tokens = $this->_generateTokens($user);
+                $tokens = $this->_generateTokens($data);
                 set_cookie(
                     'refresh_token',
                     $tokens['refresh_token'],
