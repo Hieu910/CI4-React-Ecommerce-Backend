@@ -20,7 +20,7 @@ class AuthController extends BaseController
     public function register()
     {
         try {
-            $input = $this->request->getVar();
+           
             $rules = [
                 'name'     => 'required',
                 'email'    => 'required|valid_email|is_unique[users.email]',
@@ -53,9 +53,6 @@ class AuthController extends BaseController
                 
              }
 
-           
-
-
             $data = [
                 'name'     => trim($this->request->getVar('name')),
                 'email'    => trim($this->request->getVar('email')),
@@ -63,9 +60,28 @@ class AuthController extends BaseController
                 'role'     => UserModel::ROLE_USER
             ];
             if ($this->userModel->save($data)) {
-                return $this->responseSuccess();
+                $userId = $this->userModel->getInsertID();
+                $user = $this->userModel->find($userId);
+                $tokens = $this->_generateTokens($user);
+                set_cookie(
+                    'refresh_token',
+                    $tokens['refresh_token'],
+                    604800,
+                    '',
+                    '/',
+                    '',
+                    false,
+                    true
+                );
+                unset($user['id']);
+                unset($user['password']);
+
+                return $this->responseSuccess([
+                    'user'         => $user,
+                    'access_token' => $tokens['access_token'],
+                ]);
             }
-            return $this->responseError();
+            return $this->responseError(['message' => 'User registration failed']);
         } catch (\Exception $e) {
             return $this->responseError(['message' => 'An error occurred during registration']);
         }
