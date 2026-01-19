@@ -15,7 +15,7 @@ class AdminFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         $user = $request->user;
-        if ($user->role !== UserModel::ROLE_ADMIN) {
+        if ((int)$user->role !== UserModel::ROLE_ADMIN) {
             return $this->responseError(['message' => 'Admin only'], 403);
         }
     }
