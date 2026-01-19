@@ -47,7 +47,7 @@ $routes->group('api', ['filter' => 'auth_filter'], function ($routes) {
     });
 
     $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'admin_filter'], function ($routes) {
-        $routes->get('dashboard', 'DashboardController::index');
+        $routes->get('dashboard', '\App\Controllers\Admin\DashboardController::index');
 
         $routes->group('users', function ($routes) {
             $routes->get('/', 'UserController::index');
