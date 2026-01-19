@@ -30,7 +30,7 @@ class UserController extends BaseController
         $data = [
             'name'       => $user['name'],
             'email'      => $user['email'],
-            'role'       => $user['role'],
+            'role'       => (int)$user['role'],
         ];
 
         return $this->responseSuccess($data);
