@@ -66,6 +66,7 @@ class UserController extends BaseController
             $updatedUser = $this->userModel->find($userId);
             unset($updatedUser['id']);
             unset($updatedUser['password']);
+            $updatedUser['role'] = (int)$updatedUser['role'];
             return $this->responseSuccess($updatedUser);
         }
 
