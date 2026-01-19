@@ -75,6 +75,7 @@ class AuthController extends BaseController
                 );
                 unset($user['id']);
                 unset($user['password']);
+                $user['role'] = (int)$user['role'];
 
                 return $this->responseSuccess([
                     'user'         => $user,
@@ -111,7 +112,7 @@ class AuthController extends BaseController
         );
         unset($user['id']);
         unset($user['password']);
-
+        $user['role'] = (int)$user['role'];
 
         return $this->responseSuccess([
             'user'          => $user,
