@@ -23,12 +23,7 @@ class DashboardController extends BaseController
         $this->productModel = new ProductModel();
         $this->db = \Config\Database::connect();
     }
-    public function test()
-    {
-        return $this->response->setJSON([
-            'message' => 'Dashboard test method works!'
-        ]);
-    }
+ 
     public function index()
     {
         echo "hello";
