@@ -26,7 +26,7 @@ class DashboardController extends BaseController
  
     public function index()
     {
-        echo "hello";
+        try {
         $totalRevenue = $this->orderModel->where('status', OrderModel::STATUS_SHIPPED)
             ->selectSum('total_amount')
             ->first();
@@ -54,6 +54,10 @@ class DashboardController extends BaseController
             'cards' => $cards,
             'chart' => $chartData
         ]);
+
+        } catch (\Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     private function formatChartData($data)
