@@ -23,9 +23,15 @@ class DashboardController extends BaseController
         $this->productModel = new ProductModel();
         $this->db = \Config\Database::connect();
     }
-
+    public function test()
+    {
+        return $this->response->setJSON([
+            'message' => 'Dashboard test method works!'
+        ]);
+    }
     public function index()
     {
+        echo "hello";
         $totalRevenue = $this->orderModel->where('status', OrderModel::STATUS_SHIPPED)
             ->selectSum('total_amount')
             ->first();
